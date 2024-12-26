@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.25.xsd">
+
+    <changeSet id="create-books-users-table" author="Ivan_P">
+            <createTable tableName="books_users">
+                <column name="books_id" type="bigint">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="users_id" type="bigint">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+    </changeSet>
+
+    <changeSet id="add-foreign-key-constraint-to-books-users-table" author="Ivan_P">
+        <addForeignKeyConstraint
+                baseColumnNames="users_id"
+                baseTableName="books_users"
+                baseTableCatalogName="circle_dev_test"
+                constraintName="fk-users-id-for-books"
+                onUpdate="CASCADE"
+                onDelete="NO ACTION"
+                referencedColumnNames="id"
+                referencedTableName="users"
+                referencedTableCatalogName="circle_dev_test"
+        />
+    </changeSet>
+
+    <changeSet id="add-foreign-key-constraint-to-books-users-table2" author="Ivan_P">
+        <addForeignKeyConstraint
+                baseColumnNames="books_id"
+                baseTableName="books_users"
+                baseTableCatalogName="circle_dev_test"
+                constraintName="fk-books-id-for-users"
+                onUpdate="CASCADE"
+                onDelete="NO ACTION"
+                referencedColumnNames="id"
+                referencedTableName="books"
+                referencedTableCatalogName="circle_dev_test"
+        />
+    </changeSet>
+
+</databaseChangeLog>
