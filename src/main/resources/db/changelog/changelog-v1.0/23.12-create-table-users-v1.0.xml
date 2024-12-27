@@ -24,4 +24,19 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="insert_users_table" author="Ivan_P">
+        <insert tableName="users">
+            <column name="name" value="Admin"/>
+            <column name="surname" value="Admin"/>
+            <column name="email" value="Admin@mail.ru"/>
+            <column name="password" value="$2a$10$TyxLZQObe.wfygFv4l.qXOZNqRBtt9tAz8zChfaWjHBHSvdSv3jEu"/>
+        </insert>
+        <insert tableName="users">
+            <column name="name" value="Ivan"/>
+            <column name="surname" value="Ivanov"/>
+            <column name="email" value="1111@mail.ru"/>
+            <column name="password" value="$2a$10$TyxLZQObe.wfygFv4l.qXOZNqRBtt9tAz8zChfaWjHBHSvdSv3jEu"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

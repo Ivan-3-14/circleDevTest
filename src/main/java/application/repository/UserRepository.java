@@ -1,7 +1,6 @@
 package application.repository;
 
 import application.entity.User;
-import com.sun.istack.Nullable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -28,10 +27,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     boolean existsByEmail(String email);
 
-    /**
-     * Deletes a user by their ID.
-     *
-     * @param id The ID of the user to delete. Must not be {@literal null}.
-     */
-    void deleteById(@Nullable Long id);
 }

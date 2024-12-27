@@ -1,5 +1,4 @@
-package application.service.interfaces;
-
+package application.service;
 
 import application.entity.User;
 

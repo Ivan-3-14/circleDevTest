@@ -1,4 +1,4 @@
-package application.facade.interfaces;
+package application.facade;
 
 import application.DTO.BookDTO;
 
@@ -14,10 +14,9 @@ public interface BookFacade {
      * Create a new book.
      *
      * @param bookDTO The BookDTO object containing information about the created book.
-     * @return BookDTO.
      * @see application.DTO.BookDTO
      */
-    BookDTO createBook(@NotNull BookDTO bookDTO);
+    void createBook(@NotNull BookDTO bookDTO);
 
     /**
      * Get current book by ID.
@@ -32,7 +31,7 @@ public interface BookFacade {
      * Update author by ID with the given new data.
      *
      * @param bookDTO The BookDTO object containing information about the new date of book.
-     * @param bookId ID of the book that needs to be changed
+     * @param bookId  ID of the book that needs to be changed
      * @return BookDTO.
      * @see application.DTO.BookDTO
      */
@@ -63,8 +62,8 @@ public interface BookFacade {
     /**
      * Set author's book.
      *
-     * @param bookId the ID of the book whose to be set author
-     * @param authorId the ID of the author which is added to the book
+     * @param bookId   the ID of the book whose to be set author.
+     * @param authorId the ID of the author which is added to the book.
      * @return boolean.
      */
     boolean setAuthorToBook(Long bookId, Long authorId);

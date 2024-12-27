@@ -1,4 +1,4 @@
-package application.service.interfaces;
+package application.service;
 
 
 import application.entity.Book;
@@ -29,7 +29,7 @@ public interface BookService {
      * Updates an existing book.
      *
      * @param bookId The ID of the book to be edit in the database.
-     * @param book Updated Book object.
+     * @param book   Updated Book object.
      * @see application.entity.Book
      */
     Book updateBook(Long bookId, Book book);
@@ -41,9 +41,27 @@ public interface BookService {
      */
     void deleteBookById(Long bookId);
 
+    /**
+     * Get a list of all books by author ID.
+     *
+     * @param authorId the ID of the author whose books will be found
+     * @return List<BookDTO>.
+     */
     List<Book> getAllBooksByAuthor(Long authorId);
 
+    /**
+     * Get a list of all books in library.
+     *
+     * @return List<BookDTO>.
+     */
     List<Book> getAllBooks();
 
+    /**
+     * Method to set author's book.
+     *
+     * @param bookId   the ID of the book whose to be set author
+     * @param authorId the ID of the author which is added to the book
+     * @return true if this book and this author are exists.
+     */
     boolean setAuthorToBook(Long bookId, Long authorId);
 }

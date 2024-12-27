@@ -1,7 +1,7 @@
 package application.controller;
 
 import application.DTO.UserDTO;
-import application.facade.interfaces.AuthorizationFacade;
+import application.facade.AuthorizationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,13 +16,13 @@ import javax.validation.Valid;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("rest/authorization")
+@RequestMapping("rest/library/auth/")
 public class AuthorizationController {
 
     /**
      * AuthorizationFacade interface
      *
-     * @see application.facade.interfaces.AuthorizationFacade
+     * @see AuthorizationFacade
      */
     private final AuthorizationFacade authorizationFacade;
 

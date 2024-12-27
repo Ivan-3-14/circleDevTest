@@ -1,12 +1,11 @@
 package application.facade.impl;
 
 import application.DTO.BookDTO;
-import application.conventer.BookMapper;
-import application.facade.interfaces.BookFacade;
-import application.service.interfaces.BookService;
+import application.mapper.BookMapper;
+import application.facade.BookFacade;
+import application.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
  * This class implements the BookFacade interface. Contains methods for creating, deleting, updating and find books and also
  * method for find all books, find books ba ID of author and method to set author's book
  *
- * @see application.facade.interfaces.BookFacade
+ * @see BookFacade
  */
 @RequiredArgsConstructor
 @Component
@@ -25,14 +24,14 @@ public class BookFacadeImpl implements BookFacade {
     /**
      * BookService interface
      *
-     * @see application.service.interfaces.BookService
+     * @see BookService
      */
     private final BookService bookService;
 
     /**
      * BookMapper interface
      *
-     * @see application.conventer.BookMapper
+     * @see application.mapper.BookMapper
      */
     private final BookMapper bookMapper;
 
@@ -40,11 +39,10 @@ public class BookFacadeImpl implements BookFacade {
      * Create a new book.
      *
      * @param bookDTO The BookDTO object containing information about the created book.
-     * @return BookDTO.
      */
     @Override
-    public BookDTO createBook(@NotNull BookDTO bookDTO) {
-        return bookMapper.toDTO(bookService.createBook(bookMapper.toEntity(bookDTO)));
+    public void createBook(@NotNull BookDTO bookDTO) {
+        bookMapper.toDTO(bookService.createBook(bookMapper.toEntity(bookDTO)));
     }
 
     /**
@@ -62,7 +60,7 @@ public class BookFacadeImpl implements BookFacade {
      * Update author by ID with the given new data.
      *
      * @param bookDTO The BookDTO object containing information about the new date of book.
-     * @param bookId ID of the book that needs to be changed
+     * @param bookId  ID of the book that needs to be changed
      * @return BookDTO.
      */
     @Override
@@ -110,12 +108,12 @@ public class BookFacadeImpl implements BookFacade {
     /**
      * Set author's book.
      *
-     * @param bookId the ID of the book whose to be set author
-     * @param authorId the ID of the author which is added to the book
-     * @return boolean.
+     * @param bookId   the ID of the book whose to be set author.
+     * @param authorId the ID of the author which is added to the book.
+     * @return true if this book and this author are exists.
      */
     @Override
     public boolean setAuthorToBook(@NotNull Long bookId, @NotNull Long authorId) {
-       return bookService.setAuthorToBook(bookId, authorId);
+        return bookService.setAuthorToBook(bookId, authorId);
     }
 }

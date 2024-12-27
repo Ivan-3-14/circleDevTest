@@ -1,27 +1,32 @@
 package application.facade.impl;
 
 import application.DTO.UserDTO;
-import application.conventer.UserMapper;
-import application.facade.interfaces.AuthorizationFacade;
-import application.service.interfaces.AuthorizationService;
+import application.mapper.UserMapper;
+import application.facade.AuthorizationFacade;
+import application.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class implements the AuthorFacade interface and contains method for login user.
+ *
+ * @see application.facade.AuthorizationFacade
+ */
 @RequiredArgsConstructor
 @Component
 public class AuthorizationFacadeImpl implements AuthorizationFacade {
 
     /**
-     * Authorization interface
+     * Authorization interface.
      *
-     * @see application.service.interfaces.AuthorizationService
+     * @see application.service.AuthorizationService
      */
     private final AuthorizationService authorizationService;
 
     /**
-     * UserMapper interface
+     * UserMapper interface.
      *
-     * @see application.conventer.UserMapper
+     * @see application.mapper.UserMapper
      */
     private final UserMapper userMapper;
 

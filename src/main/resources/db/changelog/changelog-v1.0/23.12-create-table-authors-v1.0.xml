@@ -18,4 +18,40 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="insert-authors-table" author="Ivan_P">
+        <insert tableName="authors">
+            <column  name="name"  value="Joshua"/>
+            <column  name="surname"  value="Bloch"/>
+        </insert>
+        <insert tableName="authors">
+            <column  name="name"  value="Peter"/>
+            <column  name="surname"  value="Verhas"/>
+        </insert>
+        <insert tableName="authors">
+            <column  name="name"  value="Craig"/>
+            <column  name="surname"  value="Walls"/>
+        </insert>
+        <insert tableName="authors">
+            <column  name="name"  value="JChristian"/>
+            <column  name="surname"  value="Bauer"/>
+        </insert>
+        <insert tableName="authors">
+            <column  name="name"  value="Herbert"/>
+            <column  name="surname"  value="Schildt"/>
+        </insert>
+        <insert tableName="authors">
+            <column  name="name"  value="Marten"/>
+            <column  name="surname"  value="Deinum"/>
+        </insert>
+        <insert tableName="authors">
+            <column  name="name"  value="Gavin"/>
+            <column  name="surname"  value="King"/>
+        </insert>
+        <insert tableName="authors">
+            <column  name="name"  value="Gary"/>
+            <column  name="surname"  value="Gregory"/>
+        </insert>
+
+    </changeSet>
+
 </databaseChangeLog>

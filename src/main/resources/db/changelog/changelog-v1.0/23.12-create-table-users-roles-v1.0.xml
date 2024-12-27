@@ -44,4 +44,15 @@
         />
     </changeSet>
 
+    <changeSet id="insert_users_role" author="Ivan_P">
+        <insert tableName="users_roles">
+            <column name="users_id" value="1"/>
+            <column name="roles_id" value="1"/>
+        </insert>
+        <insert tableName="users_roles">
+            <column name="users_id" value="2"/>
+            <column name="roles_id" value="2"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

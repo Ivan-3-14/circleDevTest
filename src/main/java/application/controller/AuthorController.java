@@ -1,7 +1,7 @@
 package application.controller;
 
 import application.DTO.AuthorDTO;
-import application.facade.interfaces.AuthorFacade;
+import application.facade.AuthorFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +20,13 @@ import static application.utils.Constant.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("rest/author")
+@RequestMapping("rest/library/author")
 public class AuthorController {
 
     /**
      * AuthorFacade interface
      *
-     * @see application.facade.interfaces.AuthorFacade
+     * @see AuthorFacade
      */
     private final AuthorFacade authorFacade;
 
@@ -37,7 +37,7 @@ public class AuthorController {
      * @return ResponseEntity with success status and AuthorDTO object.
      * @see application.DTO.AuthorDTO
      */
-    @GetMapping(path = "/getAuthorById")
+    @GetMapping(path = "/get")
     public ResponseEntity<AuthorDTO> getAuthorById(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                                    @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                            Long authorId) {
@@ -52,7 +52,7 @@ public class AuthorController {
      * @return ResponseEntity with success status.
      * @see application.DTO.AuthorDTO
      */
-    @PostMapping(path = "/createAuthor")
+    @PostMapping(path = "/admin/create")
     public ResponseEntity<?> createAuthor(@RequestBody @Valid AuthorDTO authorDTO) {
         authorFacade.createAuthor(authorDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -64,9 +64,9 @@ public class AuthorController {
      * @param authorId ID of the author that needs to be changed
      * @param newAuthorDTO the request containing new author details.
      * @return ResponseEntity with success status.
-     * @see application.DTO.BookDTO
+     * @see application.DTO.AuthorDTO
      */
-    @PostMapping(path = "/updateAuthor")
+    @PostMapping(path = "/admin/update")
     public ResponseEntity<?> updateAuthor(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                           @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                   Long authorId,
@@ -81,12 +81,11 @@ public class AuthorController {
      * @return ResponseEntity with success status.
      *
      */
-    @PostMapping(path = "/deleteAuthor")
+    @PostMapping(path = "/admin/delete")
     public ResponseEntity<?> deleteAuthor(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                           @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                   Long authorId) {
         authorFacade.deleteAuthor(authorId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

@@ -1,4 +1,4 @@
-package application.facade.interfaces;
+package application.facade;
 
 import application.DTO.AuthorDTO;
 
@@ -13,10 +13,9 @@ public interface AuthorFacade {
      * Create a new author.
      *
      * @param authorDTO The AuthorDTO object containing information about the created author.
-     * @return AuthorDTO.
      * @see application.DTO.AuthorDTO
      */
-    AuthorDTO createAuthor(@NotNull AuthorDTO authorDTO);
+    void createAuthor(@NotNull AuthorDTO authorDTO);
 
     /**
      * Get current author by ID.
@@ -31,7 +30,7 @@ public interface AuthorFacade {
      * Update author by ID with the given new data.
      *
      * @param authorDTO The AuthorDTO object containing information about the new date of author.
-     * @param authorId ID of the author that needs to be changed
+     * @param authorId  ID of the author that needs to be changed
      * @return AuthorDTO.
      * @see application.DTO.AuthorDTO
      */

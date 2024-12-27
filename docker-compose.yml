@@ -1,0 +1,30 @@
+    volumes:
+      library_db:
+        name: library_db_volume
+        external: false
+
+    services:
+      library_db:
+        container_name: ${LIBRARY_BD_NAME}
+        image: library/postgres:latest
+        environment:
+          - POSTGRES_USER=${LIBRARY_BD_USERNAME}
+          - POSTGRES_PASSWORD=${LIBRARY_BD_PASSWORD}
+          - POSTGRES_DB=${LIBRARY_BD_NAME}
+        volumes:
+          - library_db:/var/lib/postgresql/data
+        ports:
+          - "${LIBRARY_BD_PORT}:${LIBRARY_BD_PORT}"
+
+      app:
+        restart: always
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+          - "8080:8080"
+        depends_on:
+          - library_db
+        environment:
+          - SERVER_PORT= 8080
+          - SPRING_DATASOURCE_URL=jdbc:postgresql://library_db/${LIBRARY_BD_NAME}

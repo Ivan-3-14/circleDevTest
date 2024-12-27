@@ -3,7 +3,7 @@ package application.service.impl;
 import application.entity.Role;
 import application.entity.enums.Roles;
 import application.repository.RoleRepository;
-import application.service.interfaces.RoleService;
+import application.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

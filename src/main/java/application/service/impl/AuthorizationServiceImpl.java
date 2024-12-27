@@ -1,7 +1,8 @@
 package application.service.impl;
 
 import application.entity.User;
-import application.service.interfaces.AuthorizationService;
+import application.exception.PasswordMismatchException;
+import application.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,10 +10,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static application.utils.Constant.PASS_NOT_MATCH;
+
 /**
- * Implementation of AuthService interface.
+ * Implementation of AuthorizationService interface.
  *
- * @see application.service.interfaces.AuthorizationService
+ * @see application.service.AuthorizationService
  */
 @Service
 @RequiredArgsConstructor
@@ -56,7 +59,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         User user = (User) userDetailsService.loadUserByUsername(userAuth.getEmail());
 
         if (!passwordEncoder.matches(userAuth.getPassword(), user.getPassword())) {
-            throw new RuntimeException();
+            throw new PasswordMismatchException(PASS_NOT_MATCH);
         }
         return user;
     }

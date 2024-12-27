@@ -19,5 +19,8 @@ public class Constant {
     public static final String REGEXP_EMAIL = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     public static final String INVALID_EMAIL_MESSAGE = "Invalid email format. Valid format: username@domain.com";
     public static final String AUTH_USER_NOT_FOUND = "There is no such user with this email address";
+    public static final String USER_ALREADY_EXIST = "User already exist!";
+    public static final String PASS_NOT_MATCH = "Passwords do not match!";
 
+    private Constant() {}
 }

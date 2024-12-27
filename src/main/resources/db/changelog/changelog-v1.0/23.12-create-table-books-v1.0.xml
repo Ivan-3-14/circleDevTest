@@ -19,4 +19,33 @@
         </createTable>
     </changeSet>
 
+
+    <changeSet id="insert-books-table" author="Ivan_P">
+        <insert tableName="books">
+            <column  name="name"  value="Effective Java"/>
+            <column  name="year_of_issue"  value="2018"/>
+        </insert>
+        <insert tableName="books">
+            <column  name="name"  value="Java Projects"/>
+            <column  name="year_of_issue"  value="2018"/>
+        </insert>
+        <insert tableName="books">
+            <column  name="name"  value="Spring in Action, 5th Edition"/>
+            <column  name="year_of_issue"  value="2018"/>
+        </insert>
+        <insert tableName="books">
+            <column  name="name"  value="Java Persistence with Hibernate, Second Edition"/>
+            <column  name="year_of_issue"  value="2015"/>
+        </insert>
+        <insert tableName="books">
+            <column  name="name"  value="Java: A Beginner's Guide, Eighth Edition"/>
+            <column  name="year_of_issue"  value="2019"/>
+        </insert>
+        <insert tableName="books">
+            <column  name="name"  value="Spring Boot 2 Recipes"/>
+            <column  name="year_of_issue"  value="2018"/>
+        </insert>
+
+    </changeSet>
+
 </databaseChangeLog>

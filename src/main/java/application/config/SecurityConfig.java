@@ -27,8 +27,20 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * User loader bean.
+     *
+     * @see application.service.impl.UserDetailsServiceImpl
+     */
     private final UserDetailsService userDetailsService;
 
+    /**
+     * Configures the security filter chain for HttpSecurity.
+     *
+     * @param httpSecurity The HttpSecurity object.
+     * @return SecurityFilterChain object.
+     * @throws Exception if an error occurs.
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return  httpSecurity.csrf(AbstractHttpConfigurer::disable)
@@ -41,11 +53,12 @@ public class SecurityConfig {
                     return corsConfig;
                 }))
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/getAllBooks").permitAll()
-                        .antMatchers("/createAuthor", "/updateAuthor", "/deleteAuthor", "/createBook",
-                                "/updateBook", "/deleteBook", "/setAuthorToBook").hasRole("ADMIN")
-                        .antMatchers("/getAuthorById", "/getBookById", "/getBooksByAuthorId").authenticated()
-                        .anyRequest().permitAll())
+                        .antMatchers("/rest/library/*/admin/**").hasRole("ADMIN")
+                        .antMatchers("/rest/library/book/**", "/rest/library/author/**",
+                                "rest/library/auth/**", "rest/library/user/**")
+//                        .authenticated()
+//                        .anyRequest()
+                        .permitAll())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll).build();

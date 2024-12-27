@@ -1,6 +1,5 @@
 package application.entity;
 
-import application.entity.enums.Roles;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -92,10 +91,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public boolean hasRoleAdmin() {
-        return roleSet.stream()
-                .anyMatch(role -> role.getRole() == Roles.ROLE_ADMIN);
     }
 }

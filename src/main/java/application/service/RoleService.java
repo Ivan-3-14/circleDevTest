@@ -1,4 +1,4 @@
-package application.service.interfaces;
+package application.service;
 
 import application.entity.Role;
 
@@ -12,6 +12,7 @@ public interface RoleService {
 
     /**
      * Get a set of roles by role names.
+     *
      * @param roleNames The set of role names.
      * @return The set of existing roles.
      */

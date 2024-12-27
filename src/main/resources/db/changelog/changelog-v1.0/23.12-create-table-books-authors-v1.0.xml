@@ -44,4 +44,39 @@
         />
     </changeSet>
 
+    <changeSet id="insert_books_authors" author="Ivan_P">
+        <insert tableName="books_authors">
+            <column name="books_id" value="1"/>
+            <column name="authors_id" value="1"/>
+        </insert>
+        <insert tableName="books_authors">
+            <column name="books_id" value="2"/>
+            <column name="authors_id" value="2"/>
+        </insert>
+        <insert tableName="books_authors">
+            <column name="books_id" value="3"/>
+            <column name="authors_id" value="3"/>
+        </insert>
+        <insert tableName="books_authors">
+            <column name="books_id" value="4"/>
+            <column name="authors_id" value="4"/>
+        </insert>
+        <insert tableName="books_authors">
+            <column name="books_id" value="5"/>
+            <column name="authors_id" value="5"/>
+        </insert>
+        <insert tableName="books_authors">
+            <column name="books_id" value="6"/>
+            <column name="authors_id" value="6"/>
+        </insert>
+        <insert tableName="books_authors">
+            <column name="books_id" value="4"/>
+            <column name="authors_id" value="7"/>
+        </insert>
+        <insert tableName="books_authors">
+            <column name="books_id" value="4"/>
+            <column name="authors_id" value="8"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

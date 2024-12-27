@@ -1,7 +1,7 @@
 package application.controller;
 
 import application.DTO.BookDTO;
-import application.facade.interfaces.BookFacade;
+import application.facade.BookFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +20,14 @@ import static application.utils.Constant.*;
  * @see application.entity.Book
  */
 @RestController
-@RequestMapping("rest/book")
+@RequestMapping("rest/library/book")
 @RequiredArgsConstructor
 public class BookController {
 
     /**
      * BookFacade interface
      *
-     * @see application.facade.interfaces.BookFacade
+     * @see BookFacade
      */
     private final BookFacade bookFacade;
 
@@ -36,7 +36,7 @@ public class BookController {
      *
      * @return ResponseEntity with success status and List<BookDTO> objects or status "Not Found:.
      */
-    @GetMapping(path = "/getAllBooks")
+    @GetMapping(path = "/get/books")
     public ResponseEntity<List<BookDTO>> getAllBooks() {
         List<BookDTO> bookDTOList = bookFacade.getAllBooks();
 
@@ -52,7 +52,7 @@ public class BookController {
      * @return ResponseEntity with success status and BookDTO object.
      * @see application.DTO.BookDTO
      */
-    @GetMapping(path = "/getBookById")
+    @GetMapping(path = "/get")
     public ResponseEntity<BookDTO> getBookById(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                                @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                        Long bookId) {
@@ -67,7 +67,7 @@ public class BookController {
      * @return ResponseEntity with success status.
      * @see application.DTO.BookDTO
      */
-    @PostMapping(path = "/createBook")
+    @PostMapping(path = "/admin/create")
     public ResponseEntity<?> createBook(@RequestBody @Valid BookDTO bookDTO) {
         bookFacade.createBook(bookDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -81,7 +81,7 @@ public class BookController {
      * @return ResponseEntity with success status.
      * @see application.DTO.BookDTO
      */
-    @PostMapping(path = "/updateBook")
+    @PostMapping(path = "/admin/update")
     public ResponseEntity<?> updateBook(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                         @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                 Long bookId, @RequestBody @Valid BookDTO newBookDTO) {
@@ -95,7 +95,7 @@ public class BookController {
      * @return ResponseEntity with success status.
      *
      */
-    @PostMapping(path = "/deleteBook")
+    @PostMapping(path = "/admin/delete")
     public ResponseEntity<?> deleteBook(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                         @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                 Long bookId) {
@@ -109,7 +109,7 @@ public class BookController {
      * @param authorId the ID of the author whose books will be found
      * @return ResponseEntity with success status and List<BookDTO> objects or status "Not Found:.
      */
-    @GetMapping(path = "/getBooksByAuthorId")
+    @GetMapping(path = "/get/byAuthor")
     public ResponseEntity<List<BookDTO>> getBooksByAuthorId(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                                             @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                                     Long authorId) {
@@ -127,7 +127,7 @@ public class BookController {
      * @param authorId the ID of the author which is added to the book
      * @return ResponseEntity with success status and List<BookDTO> objects or status "Not Found:.
      */
-    @PostMapping(path = "/setAuthorToBook")
+    @PostMapping(path = "/admin/author/set")
     public ResponseEntity<?> setAuthorToBook(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                              @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                      Long bookId,
