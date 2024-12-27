@@ -56,8 +56,8 @@ public class SecurityConfig {
                         .antMatchers("/rest/library/*/admin/**").hasRole("ADMIN")
                         .antMatchers("/rest/library/book/**", "/rest/library/author/**",
                                 "rest/library/auth/**", "rest/library/user/**")
-//                        .authenticated()
-//                        .anyRequest()
+                        .authenticated()
+                        .anyRequest()
                         .permitAll())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
