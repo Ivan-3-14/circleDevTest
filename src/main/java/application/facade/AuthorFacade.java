@@ -30,11 +30,10 @@ public interface AuthorFacade {
      * Update author by ID with the given new data.
      *
      * @param authorDTO The AuthorDTO object containing information about the new date of author.
-     * @param authorId  ID of the author that needs to be changed
      * @return AuthorDTO.
      * @see application.DTO.AuthorDTO
      */
-    AuthorDTO updateAuthor(@NotNull Long authorId, @NotNull AuthorDTO authorDTO);
+    AuthorDTO updateAuthor(@NotNull AuthorDTO authorDTO);
 
     /**
      * Delete the author with the given ID.

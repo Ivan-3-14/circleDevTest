@@ -61,13 +61,12 @@ public class AuthorFacadeImpl implements AuthorFacade {
      * Update author by ID with the given new data.
      *
      * @param authorDTO The AuthorDTO object containing information about the new date of author.
-     * @param authorId  ID of the author that needs to be changed.
      * @return AuthorDTO.
      * @see application.DTO.AuthorDTO
      */
     @Override
-    public AuthorDTO updateAuthor(@NotNull Long authorId, @NotNull AuthorDTO authorDTO) {
-        return authorMapper.toDTO(authorService.updateAuthor(authorId, authorMapper.toEntity(authorDTO)));
+    public AuthorDTO updateAuthor(@NotNull AuthorDTO authorDTO) {
+        return authorMapper.toDTO(authorService.updateAuthor(authorMapper.toEntity(authorDTO)));
     }
 
     /**

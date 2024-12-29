@@ -1,7 +1,6 @@
 package application.repository;
 
 import application.entity.Role;
-import application.entity.enums.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -17,5 +16,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
      * @param role The role of the user associated with the role enum.
      * @return The user Role from database.
      */
-    Role getByRole(Roles role);
+    Role getByRole(String role);
 }

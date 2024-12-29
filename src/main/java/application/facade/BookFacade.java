@@ -31,11 +31,10 @@ public interface BookFacade {
      * Update author by ID with the given new data.
      *
      * @param bookDTO The BookDTO object containing information about the new date of book.
-     * @param bookId  ID of the book that needs to be changed
      * @return BookDTO.
      * @see application.DTO.BookDTO
      */
-    BookDTO updateBook(@NotNull Long bookId, @NotNull BookDTO bookDTO);
+    BookDTO updateBook(@NotNull BookDTO bookDTO);
 
     /**
      * Delete the book with the given ID.

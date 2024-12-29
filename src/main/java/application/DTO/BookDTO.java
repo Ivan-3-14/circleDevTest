@@ -1,9 +1,9 @@
 package application.DTO;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
@@ -17,8 +17,7 @@ public class BookDTO {
     @NotBlank
     private String name;
 
-    @NotBlank
-    @Length(min = 4, max = 4)
+    @NotNull
     private Integer yearOfIssue;
 
     @ToString.Exclude

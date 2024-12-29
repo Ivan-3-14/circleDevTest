@@ -27,11 +27,10 @@ public interface AuthorService {
     /**
      * Updates an existing author.
      *
-     * @param author   the author object with date to update to the database.
-     * @param authorId ID of the author that needs to be changed
+     * @param author the author object with date to update to the database.
      * @see application.entity.Author
      */
-    Author updateAuthor(Long authorId, Author author);
+    Author updateAuthor(Author author);
 
     /**
      * Delete the author with the given ID.

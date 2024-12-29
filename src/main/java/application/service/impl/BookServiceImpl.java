@@ -4,7 +4,6 @@ import application.entity.Author;
 import application.entity.Book;
 import application.repository.AuthorRepository;
 import application.repository.BookRepository;
-import application.service.AuthorizationService;
 import application.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -65,14 +64,12 @@ public class BookServiceImpl implements BookService {
     /**
      * Updates an existing book.
      *
-     * @param bookId The ID of the book to be edit in the database.
-     * @param book   Updated Book object.
+     * @param book Updated Book object.
      * @see application.entity.Book
      */
     @Override
-    public Book updateBook(Long bookId, Book book) {
-        Book temp = bookRepository.getById(bookId);
-        book.setId(bookId);
+    public Book updateBook(Book book) {
+        Book temp = bookRepository.getById(book.getId());
         if (book.getAuthorSet() == null) {
             book.setAuthorSet(temp.getAuthorSet());
         } else {

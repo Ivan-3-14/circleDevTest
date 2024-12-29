@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ErrorMessage {
     /**
-     *Text message sent to the user when an exception occurs
+     * Text message sent to the user when an exception occurs
      */
     private final String message;
 

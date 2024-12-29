@@ -28,11 +28,10 @@ public interface BookService {
     /**
      * Updates an existing book.
      *
-     * @param bookId The ID of the book to be edit in the database.
-     * @param book   Updated Book object.
+     * @param book Updated Book object.
      * @see application.entity.Book
      */
-    Book updateBook(Long bookId, Book book);
+    Book updateBook(Book book);
 
     /**
      * Deletes the book with the specified ID.

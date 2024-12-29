@@ -1,7 +1,7 @@
 package application.service.impl;
 
 import application.entity.User;
-import application.entity.enums.Roles;
+import application.exception.PasswordMismatchException;
 import application.exception.UserAlreadyExist;
 import application.repository.RoleRepository;
 import application.repository.UserRepository;
@@ -11,7 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static application.utils.Constant.USER_ALREADY_EXIST;
+import java.util.Objects;
+
+import static application.utils.Constant.*;
 
 /**
  * Implementation of UserService interface.
@@ -54,7 +56,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User user) {
         checkEmail(user);
-        user.getRoleSet().add(roleRepository.getByRole(Roles.ROLE_USER));
+        checkPassword(user.getPassword(), user.getPasswordConfirm());
+        user.getRoleSet().forEach(r -> user.getRoleSet().add(roleRepository.getByRole(r.toString())));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -75,14 +78,15 @@ public class UserServiceImpl implements UserService {
     /**
      * Updates an existing user.
      *
-     * @param user   the user object with date to update to the database.
-     * @param userId ID of the user that needs to be changed
+     * @param user the user object with date to update to the database.
      * @see User
      */
     @Override
-    public User updateUser(Long userId, User user) {
-        user.setId(userId);
-        return createUser(user);
+    public User updateUser(User user) {
+        if (Objects.isNull(user)) {
+            throw new IllegalArgumentException(USER_CANNOT_BE_NULL);
+        }
+        return userRepository.save(user);
     }
 
     /**
@@ -105,6 +109,19 @@ public class UserServiceImpl implements UserService {
     private void checkEmail(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExist(USER_ALREADY_EXIST);
+        }
+    }
+
+    /**
+     * Method to check if the password and password confirmation match.
+     *
+     * @param password        The user's password.
+     * @param passwordConfirm The password confirmation.
+     * @throws PasswordMismatchException if the password and password confirmation do not match.
+     */
+    private void checkPassword(String password, String passwordConfirm) {
+        if (!Objects.requireNonNull(password).equals(passwordConfirm)) {
+            throw new PasswordMismatchException(PASS_NOT_MATCH);
         }
     }
 }

@@ -30,11 +30,10 @@ public interface UserFacade {
      * Update author by ID with the given new data.
      *
      * @param userDTO The UserDTO object containing information about the new date of user.
-     * @param userId  ID of the user that needs to be changed
      * @return UserDTO.
      * @see application.DTO.UserDTO
      */
-    UserDTO updateUser(@NotNull Long userId, @NotNull UserDTO userDTO);
+    UserDTO updateUser(@NotNull UserDTO userDTO);
 
     /**
      * Delete the author with the given ID.

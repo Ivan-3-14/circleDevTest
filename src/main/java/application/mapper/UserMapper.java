@@ -14,10 +14,12 @@ import java.util.Set;
 public interface UserMapper {
 
     @Mapping(target = "id")
+    @Mapping(target = "roleSet")
     @Mapping(expression = "java(getBookSet(userDTO))", target = "bookSet")
     User toEntity(UserDTO userDTO);
 
     @Mapping(target = "id")
+    @Mapping(target = "roleSet")
     @Mapping(expression = "java(getBookDTOSet(user))", target = "bookDTOSet")
     UserDTO toDTO(User user);
 

@@ -18,10 +18,10 @@
 
     <changeSet id="insert_roles_id" author="Ivan_P">
         <insert tableName="roles">
-            <column name="role" value="ROLE_ADMIN"/>
+            <column name="role" value="ADMIN"/>
         </insert>
         <insert tableName="roles">
-            <column name="role" value="ROLE_USER"/>
+            <column name="role" value="USER"/>
         </insert>
     </changeSet>
 

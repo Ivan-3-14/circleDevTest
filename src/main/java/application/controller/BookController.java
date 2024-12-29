@@ -5,6 +5,7 @@ import application.facade.BookFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -68,6 +69,7 @@ public class BookController {
      * @see application.DTO.BookDTO
      */
     @PostMapping(path = "/admin/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createBook(@RequestBody @Valid BookDTO bookDTO) {
         bookFacade.createBook(bookDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -76,16 +78,14 @@ public class BookController {
     /**
      * Endpoint to update an existing book.
      *
-     * @param bookId ID of the book that needs to be changed
      * @param newBookDTO the request containing book details.
      * @return ResponseEntity with success status.
      * @see application.DTO.BookDTO
      */
     @PostMapping(path = "/admin/update")
-    public ResponseEntity<?> updateBook(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
-                                        @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
-                                                Long bookId, @RequestBody @Valid BookDTO newBookDTO) {
-        return new ResponseEntity<>(bookFacade.updateBook(bookId, newBookDTO), HttpStatus.OK);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateBook(@RequestBody @Valid BookDTO newBookDTO) {
+        return new ResponseEntity<>(bookFacade.updateBook(newBookDTO), HttpStatus.OK);
     }
 
     /**
@@ -93,9 +93,9 @@ public class BookController {
      *
      * @param bookId the ID of the book to be deleted.
      * @return ResponseEntity with success status.
-     *
      */
-    @PostMapping(path = "/admin/delete")
+    @DeleteMapping(path = "/admin/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteBook(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                         @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                 Long bookId) {
@@ -123,11 +123,12 @@ public class BookController {
     /**
      * Endpoint to set author's book.
      *
-     * @param bookId the ID of the book whose to be set author
+     * @param bookId   the ID of the book whose to be set author
      * @param authorId the ID of the author which is added to the book
      * @return ResponseEntity with success status and List<BookDTO> objects or status "Not Found:.
      */
     @PostMapping(path = "/admin/author/set")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> setAuthorToBook(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                              @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                      Long bookId,

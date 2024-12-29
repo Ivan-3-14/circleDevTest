@@ -27,11 +27,10 @@ public interface UserService {
     /**
      * Updates an existing user.
      *
-     * @param user   the user object with date to update to the database.
-     * @param userId ID of the user that needs to be changed
+     * @param user the user object with date to update to the database.
      * @see application.entity.Author
      */
-    User updateUser(Long userId, User user);
+    User updateUser(User user);
 
     /**
      * Delete the user with the given ID.

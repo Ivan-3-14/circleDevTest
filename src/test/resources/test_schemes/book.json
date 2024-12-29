@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "yearOfIssue": {
+      "type": "integer",
+      "minLength": 4
+    },
+    "authorDTOSet": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "surname": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": ["id", "name", "surname"]
+      }
+    },
+    "totalItems": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "yearOfIssue",
+    "authorDTOSet"
+  ]
+}

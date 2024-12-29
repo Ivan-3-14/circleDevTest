@@ -21,6 +21,9 @@ public class Constant {
     public static final String AUTH_USER_NOT_FOUND = "There is no such user with this email address";
     public static final String USER_ALREADY_EXIST = "User already exist!";
     public static final String PASS_NOT_MATCH = "Passwords do not match!";
+    public static final String USER_CANNOT_BE_NULL = "UserDTO cannot be null";
 
-    private Constant() {}
+
+    private Constant() {
+    }
 }

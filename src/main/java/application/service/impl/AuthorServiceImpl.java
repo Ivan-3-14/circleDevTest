@@ -51,13 +51,11 @@ public class AuthorServiceImpl implements AuthorService {
     /**
      * Updates an existing author.
      *
-     * @param author   the author object with date to update to the database.
-     * @param authorId ID of the author that needs to be changed
+     * @param author the author object with date to update to the database.
      * @see application.entity.Author
      */
     @Override
-    public Author updateAuthor(Long authorId, Author author) {
-        author.setId(authorId);
+    public Author updateAuthor(Author author) {
         return createAuthor(author);
     }
 

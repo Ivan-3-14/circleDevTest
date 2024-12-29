@@ -39,7 +39,7 @@ public class UserController {
     @GetMapping(path = "/get")
     public ResponseEntity<UserDTO> getAuthorById(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                                  @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
-                                                  Long userId) {
+                                                         Long userId) {
         UserDTO userDTO = userFacade.findUserById(userId);
         return ResponseEntity.ok(userDTO);
     }
@@ -60,17 +60,13 @@ public class UserController {
     /**
      * Endpoint to update an existing user.
      *
-     * @param userId  ID of the user that needs to be changed
      * @param userDTO the request containing new user details.
      * @return ResponseEntity with success status.
      * @see application.DTO.UserDTO
      */
     @PostMapping(path = "/update")
-    public ResponseEntity<?> updateUser(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
-                                        @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
-                                        Long userId,
-                                        @RequestBody UserDTO userDTO) {
-        return new ResponseEntity<>(userFacade.updateUser(userId, userDTO), HttpStatus.OK);
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
+        return new ResponseEntity<>(userFacade.updateUser(userDTO), HttpStatus.OK);
     }
 
     /**
@@ -79,10 +75,10 @@ public class UserController {
      * @param userId the ID of the user to be deleted.
      * @return ResponseEntity with success status.
      */
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete")
     public ResponseEntity<?> deleteUser(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                         @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
-                                        Long userId) {
+                                                Long userId) {
         userFacade.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

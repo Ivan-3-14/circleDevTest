@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class implements the BookFacade interface. Contains methods for creating, deleting, updating and find books and also
@@ -60,12 +60,11 @@ public class BookFacadeImpl implements BookFacade {
      * Update author by ID with the given new data.
      *
      * @param bookDTO The BookDTO object containing information about the new date of book.
-     * @param bookId  ID of the book that needs to be changed
      * @return BookDTO.
      */
     @Override
-    public BookDTO updateBook(@NotNull Long bookId, @NotNull BookDTO bookDTO) {
-        return bookMapper.toDTO(bookService.updateBook(bookId, bookMapper.toEntity(bookDTO)));
+    public BookDTO updateBook(@NotNull BookDTO bookDTO) {
+        return bookMapper.toDTO(bookService.updateBook(bookMapper.toEntity(bookDTO)));
     }
 
     /**
@@ -86,10 +85,9 @@ public class BookFacadeImpl implements BookFacade {
      */
     @Override
     public List<BookDTO> getAllBooksByAuthor(@NotNull Long authorId) {
-        List<BookDTO> result = new ArrayList<>();
-        bookService.getAllBooksByAuthor(authorId)
-                .forEach(b -> result.add(bookMapper.toDTO(b)));
-        return result;
+        return bookService.getAllBooksByAuthor(authorId).stream()
+                .map(bookMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -99,10 +97,9 @@ public class BookFacadeImpl implements BookFacade {
      */
     @Override
     public List<BookDTO> getAllBooks() {
-        List<BookDTO> result = new ArrayList<>();
-        bookService.getAllBooks()
-                .forEach(b -> result.add(bookMapper.toDTO(b)));
-        return result;
+        return bookService.getAllBooks().stream()
+                .map(bookMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     /**

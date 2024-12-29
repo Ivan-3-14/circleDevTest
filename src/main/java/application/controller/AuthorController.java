@@ -5,6 +5,7 @@ import application.facade.AuthorFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -53,6 +54,7 @@ public class AuthorController {
      * @see application.DTO.AuthorDTO
      */
     @PostMapping(path = "/admin/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createAuthor(@RequestBody @Valid AuthorDTO authorDTO) {
         authorFacade.createAuthor(authorDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -61,17 +63,14 @@ public class AuthorController {
     /**
      * Endpoint to update an existing author.
      *
-     * @param authorId ID of the author that needs to be changed
      * @param newAuthorDTO the request containing new author details.
      * @return ResponseEntity with success status.
      * @see application.DTO.AuthorDTO
      */
     @PostMapping(path = "/admin/update")
-    public ResponseEntity<?> updateAuthor(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
-                                          @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
-                                                  Long authorId,
-                                          @RequestBody AuthorDTO newAuthorDTO) {
-        return new ResponseEntity<>(authorFacade.updateAuthor(authorId, newAuthorDTO), HttpStatus.OK);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateAuthor(@RequestBody AuthorDTO newAuthorDTO) {
+        return new ResponseEntity<>(authorFacade.updateAuthor(newAuthorDTO), HttpStatus.OK);
     }
 
     /**
@@ -79,9 +78,9 @@ public class AuthorController {
      *
      * @param authorId the ID of the author to be deleted.
      * @return ResponseEntity with success status.
-     *
      */
-    @PostMapping(path = "/admin/delete")
+    @DeleteMapping(path = "/admin/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteAuthor(@RequestParam @NotNull(message = ID_CANNOT_BE_NULL)
                                           @Min(value = MIN_ID, message = ID_CANNOT_BE_LESS_1)
                                                   Long authorId) {

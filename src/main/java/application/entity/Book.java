@@ -31,7 +31,7 @@ public class Book {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @JoinTable(name = "books_authors",
             joinColumns = {@JoinColumn(name = "books_id")},
             inverseJoinColumns = {@JoinColumn(name = "authors_id")})
@@ -39,7 +39,7 @@ public class Book {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @JoinTable(name = "books_users",
             joinColumns = {@JoinColumn(name = "books_id")},
             inverseJoinColumns = {@JoinColumn(name = "users_id")})

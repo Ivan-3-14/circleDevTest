@@ -26,7 +26,7 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "enum(USER_ROLE, ADMIN_ROLE)")
+    @Column(nullable = false, columnDefinition = "enum(USER, ADMIN)")
     @NotNull(message = ROLE_CANNOT_BE_NULL)
     private Roles role;
 

@@ -1,23 +1,17 @@
 package application.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-
-import java.util.List;
 
 /**
  * Configuration class for web security.
@@ -25,7 +19,7 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * User loader bean.
@@ -34,47 +28,23 @@ public class SecurityConfig {
      */
     private final UserDetailsService userDetailsService;
 
-    /**
-     * Configures the security filter chain for HttpSecurity.
-     *
-     * @param httpSecurity The HttpSecurity object.
-     * @return SecurityFilterChain object.
-     * @throws Exception if an error occurs.
-     */
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return  httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(request -> {
-                    CorsConfiguration corsConfig = new CorsConfiguration();
-                    corsConfig.setAllowedOriginPatterns(List.of("*"));
-                    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                    corsConfig.setAllowedHeaders(List.of("*"));
-                    corsConfig.setAllowCredentials(true);
-                    return corsConfig;
-                }))
-                .authorizeRequests(auth -> auth
-                        .antMatchers("/rest/library/*/admin/**").hasRole("ADMIN")
-                        .antMatchers("/rest/library/book/**", "/rest/library/author/**",
-                                "rest/library/auth/**", "rest/library/user/**")
-                        .authenticated()
-                        .anyRequest()
-                        .permitAll())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll).build();
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/rest/library/book/get/books").permitAll()
+                .antMatchers("/rest/library/*/admin/**").permitAll()
+                .antMatchers("/rest/library/book/**", "/rest/library/author/**",
+                        "rest/library/auth/**", "rest/library/user/**").hasAnyRole("USER", "ADMIN")
+                .and().formLogin().permitAll();
     }
 
-    /**
-     * Creates and configures the AuthenticationProvider.
-     *
-     * @return AuthenticationProvider object.
-     */
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(bCryptPasswordEncoder());
-        return provider;
+    @Autowired
+    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     /**

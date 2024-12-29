@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 import java.util.Optional;
+
+import static application.utils.Constant.USER_CANNOT_BE_NULL;
 
 /**
  * This class implements the UserFacade interface and contains methods for creating, deleting, updating, and find users.
@@ -61,13 +64,15 @@ public class UserFacadeImpl implements UserFacade {
      * Update user by ID with the given new data.
      *
      * @param userDTO The UserDTO object containing information about the new date of user.
-     * @param userId  ID of the user that needs to be changed
      * @return UserDTO.
      * @see UserDTO
      */
     @Override
-    public UserDTO updateUser(@NotNull Long userId, @NotNull UserDTO userDTO) {
-        return userMapper.toDTO(userService.updateUser(userId, userMapper.toEntity(userDTO)));
+    public UserDTO updateUser(@NotNull UserDTO userDTO) {
+        if (Objects.isNull(userDTO)) {
+            throw new IllegalArgumentException(USER_CANNOT_BE_NULL);
+        }
+        return userMapper.toDTO(userService.updateUser(userMapper.toEntity(userDTO)));
     }
 
     /**
@@ -81,4 +86,5 @@ public class UserFacadeImpl implements UserFacade {
                 .ifPresent(userService::deleteUser);
 
     }
+
 }

@@ -50,7 +50,6 @@ public class User implements UserDetails {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @Builder.Default
     @NotEmpty(message = THE_ROLE_SET_CANNOT_BE_EMPTY)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
